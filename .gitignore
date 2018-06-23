@@ -3,3 +3,6 @@ node_modules/
 
 # OS Files
 .DS_Store
+
+# Env-specific config files
+server/config/config.json
