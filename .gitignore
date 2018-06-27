@@ -6,3 +6,6 @@ node_modules/
 
 # Env-specific config files
 server/config/config.json
+
+# Logs
+logfile
