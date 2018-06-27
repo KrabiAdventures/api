@@ -34,24 +34,24 @@ module.exports = {
   },
 
   update(req, res) {
-	return Category
-	  .findById(req.params.categoryId)
-	  .then(category => {
-		if (!category) {
-		  return res.status(404).send({
-			message: 'Category Not Found',
-		  });
-		}
-		return category
-		  .update({
-			name: req.body.name || category.name,
-			description: req.body.description || category.description,
-			featured: req.body.featured || category.featured,
-		  })
-		  .then(() => res.status(200).send(category))
-		  .catch((error) => res.status(400).send(error));
-	  })
-	  .catch((error) => res.status(400).send(error));
+    return Category
+      .findById(req.params.categoryId)
+      .then(category => {
+        if (!category) {
+          return res.status(404).send({
+            message: 'Category Not Found',
+          });
+        }
+        return category
+          .update({
+            name: req.body.name || category.name,
+            description: req.body.description || category.description,
+            featured: req.body.featured || category.featured,
+          })
+          .then(() => res.status(200).send(category))
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
   },
 
   destroy(req, res) {

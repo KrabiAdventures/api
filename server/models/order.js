@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Order.associate = (models) => {
+  Order.associate = () => {
     //
   };
 

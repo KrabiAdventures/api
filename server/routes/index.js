@@ -3,7 +3,7 @@ const controllers = {
   categories: require('../controllers').categories,
   orders: require('../controllers').orders,
   unavailabilities: require('../controllers').unavailabilities,
-}
+};
 
 module.exports = (app) => {
   app.group('/api', router => {
@@ -27,7 +27,7 @@ module.exports = (app) => {
       router.delete('/:categoryId', controllers.categories.destroy);
     });
     
-	  router.group('/orders', router => {
+    router.group('/orders', router => {
       router.post('/', controllers.orders.create);
       router.get('/', controllers.orders.list);
       router.get('/:orderId', controllers.orders.retrieve);
@@ -41,6 +41,6 @@ module.exports = (app) => {
       router.get('/:unavailabilityId', controllers.unavailabilities.retrieve);
       router.put('/:unavailabilityId', controllers.unavailabilities.update);
       router.delete('/:unavailabilityId', controllers.unavailabilities.destroy);
-    })
+    });
   });
 };

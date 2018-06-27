@@ -35,25 +35,25 @@ module.exports = {
   },
 
   update(req, res) {
-	return Order
-	  .findById(req.params.orderId)
-	  .then(order => {
-		if (!order) {
-		  return res.status(404).send({
-			message: 'Order Not Found',
-		  });
-		}
-		return order
-		  .update({
-			name: req.body.name || order.name,
-			email: req.body.email || order.email,
-			phone_no: req.body.phone_no || order.phone_no,
-			paid_with: req.body.paid_with || order.paid_with,
-		  })
-		  .then(() => res.status(200).send(order))
-		  .catch((error) => res.status(400).send(error));
-	  })
-	  .catch((error) => res.status(400).send(error));
+    return Order
+      .findById(req.params.orderId)
+      .then(order => {
+        if (!order) {
+          return res.status(404).send({
+            message: 'Order Not Found',
+          });
+        }
+        return order
+          .update({
+            name: req.body.name || order.name,
+            email: req.body.email || order.email,
+            phone_no: req.body.phone_no || order.phone_no,
+            paid_with: req.body.paid_with || order.paid_with,
+          })
+          .then(() => res.status(200).send(order))
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
   },
 
   destroy(req, res) {
