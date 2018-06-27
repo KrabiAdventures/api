@@ -1,6 +1,7 @@
 const controllers = {
   products: require('../controllers').products,
   orders: require('../controllers').orders,
+  unavailabilities: require('../controllers').unavailabilities,
 }
 
 module.exports = (app) => {
@@ -9,13 +10,13 @@ module.exports = (app) => {
       message: 'Welcome to the API.',
     }));
 
-	router.group('/orders', router => {
-	  router.post('/', controllers.orders.create);
-	  router.get('/', controllers.orders.list);
-	  router.get('/:orderId', controllers.orders.retrieve);
-	  router.put('/:orderId', controllers.orders.update);
-	  router.delete('/:orderId', controllers.orders.destroy);
-	});
+	  router.group('/orders', router => {
+      router.post('/', controllers.orders.create);
+      router.get('/', controllers.orders.list);
+      router.get('/:orderId', controllers.orders.retrieve);
+      router.put('/:orderId', controllers.orders.update);
+      router.delete('/:orderId', controllers.orders.destroy);
+    });
 
     router.group('/products', router => {
       router.post('/', controllers.products.create);
@@ -24,5 +25,13 @@ module.exports = (app) => {
       router.put('/:productId', controllers.products.update);
       router.delete('/:productId', controllers.products.destroy);
     });
+
+    router.group('/unavailabilities', router => {
+      router.post('/', controllers.unavailabilities.create);
+      router.get('/', controllers.unavailabilities.list);
+      router.get('/:unavailabilityId', controllers.unavailabilities.retrieve);
+      router.put('/:unavailabilityId', controllers.unavailabilities.update);
+      router.delete('/:unavailabilityId', controllers.unavailabilities.destroy);
+    })
   });
 };

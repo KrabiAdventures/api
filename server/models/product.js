@@ -39,7 +39,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Product.associate = (models) => {
-    //
+    Product.hasMany(models.Unavailability, {
+      foreignKey: 'productId',
+      as: 'unavailabilities',
+    });
   };
 
   return Product;
