@@ -1,6 +1,7 @@
 const controllers = {
   products: require('../controllers').products,
   orders: require('../controllers').orders,
+  categories: require('../controllers').categories,
 }
 
 module.exports = (app) => {
@@ -15,6 +16,14 @@ module.exports = (app) => {
 	  router.get('/:orderId', controllers.orders.retrieve);
 	  router.put('/:orderId', controllers.orders.update);
 	  router.delete('/:orderId', controllers.orders.destroy);
+	});
+
+	router.group('/categories', router => {
+	  router.post('/', controllers.categories.create);
+	  router.get('/', controllers.categories.list);
+	  router.get('/:categoryId', controllers.categories.retrieve);
+	  router.put('/:categoryId', controllers.categories.update);
+	  router.delete('/:categoryId', controllers.categories.destroy);
 	});
 
     router.group('/products', router => {
