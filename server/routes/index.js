@@ -9,7 +9,13 @@ module.exports = (app) => {
       message: 'Welcome to the API.',
     }));
 
- 	app.post('/api/orders', controllers.orders.create);
+	router.group('/orders', router => {
+	  router.post('/', controllers.orders.create);
+	  router.get('/', controllers.orders.list);
+	  router.get('/:orderId', controllers.orders.retrieve);
+	  router.put('/:orderId', controllers.orders.update);
+	  router.delete('/:orderId', controllers.orders.destroy);
+	});
 
     router.group('/products', router => {
       router.post('/', controllers.products.create);
