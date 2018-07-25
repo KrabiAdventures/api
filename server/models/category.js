@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Category.associate = (models) => {
+  Category.associate = () => {
     //
   };
 

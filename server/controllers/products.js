@@ -1,4 +1,5 @@
 const Product = require('../models').Product;
+const Unavailability = require('../models').Unavailability;
 
 module.exports = {
   create(req, res) {
@@ -27,7 +28,13 @@ module.exports = {
 
   retrieve(req, res) {
     return Product
-      .findById(req.params.productId)
+      .findAll({ 
+        where: { id: req.params.productId }, 
+        include: [{
+          model: Unavailability,
+          as: 'unavailabilities'
+        }] 
+      })
       .then(product => {
         if (!product) {
           return res.status(404).send({
