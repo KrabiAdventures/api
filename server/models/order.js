@@ -18,8 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Order.associate = () => {
-    //
+  Order.associate = (models) => {
+	  Order.belongsToMany(models.Product, {
+  		through: OrderProduct
+  	});
   };
 
   return Order;
