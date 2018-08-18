@@ -4,10 +4,9 @@ module.exports = {
   create(req, res) {
     return Unavailability
       .create({
-        title: req.body.title,
         description: req.body.description,
-        dateTo: req.body.dateTo,
-        dateFrom: req.body.dateFrom,
+        date_to: req.body.date_to,
+        date_from: req.body.date_from,
         product_id: req.body.product_id
       })
       .then(unavailability => res.status(201).send(unavailability))
@@ -46,9 +45,10 @@ module.exports = {
         }
         return unavailability
           .update({
-            title: req.body.title || unavailability.title,
-            dateTo: req.body.dateTo || unavailability.dateTo,
-            dateFrom: req.body.dateFrom || unavailability.dateFrom
+            description: req.body.description || unavailability.description,
+            date_to: req.body.date_to || unavailability.date_to,
+            date_from: req.body.date_from || unavailability.date_from,
+            product_id: req.body.product_id
           })
           .then(() => res.status(200).send(unavailability)) 
           .catch((error) => res.status(400).send(error));
