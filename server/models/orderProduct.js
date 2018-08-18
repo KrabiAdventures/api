@@ -16,16 +16,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+  }, {
+    timestamps: true,
+    underscored: true
   });
 
   OrderProduct.associate = (models) => {
     OrderProduct.belongsTo(models.Order, {
       foreignKey: 'OrderId',
       onDelete: 'CASCADE',
+      unique: false
     });
     OrderProduct.belongsTo(models.Product, {
       foreignKey: 'productId',
       onDelete: 'CASCADE',
+      unique: false
     });
   };
 

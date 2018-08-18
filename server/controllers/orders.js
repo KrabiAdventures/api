@@ -16,7 +16,7 @@ module.exports = {
           req.body.products.forEach(product => {
             OrderProduct.create({ 
               OrderId: order.id,
-              productId: product.id,
+              productId: product.productId,
               pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
               adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
               child_quantity: product.child_quantity ? product.child_quantity : 0,

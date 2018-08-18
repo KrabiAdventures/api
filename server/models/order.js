@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+  }, {
+    timestamps: true,
+    underscored: true
   });
 
   Order.associate = (models) => {

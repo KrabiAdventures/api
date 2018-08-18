@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
+  }, {
+    timestamps: true,
+    underscored: true
   });
 
   Category.associate = () => {

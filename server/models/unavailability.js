@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+  }, {
+    timestamps: true,
+    underscored: true
   });
 
   Unavailability.associate = (models) => {
