@@ -19,14 +19,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   OrderProduct.associate = (models) => {
-	  OrderProduct.belongsTo(models.Order, {
-        foreignKey: 'orderId',
-        onDelete: 'CASCADE',
-      });
-	  OrderProduct.belongsTo(models.Product, {
-		  foreignKey: 'productId',
-		  onDelete: 'CASCADE',
-		});
+    OrderProduct.belongsTo(models.Order, {
+      foreignKey: 'OrderId',
+      onDelete: 'CASCADE',
+    });
+    OrderProduct.belongsTo(models.Product, {
+      foreignKey: 'productId',
+      onDelete: 'CASCADE',
+    });
   };
 
   return OrderProduct;

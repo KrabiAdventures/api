@@ -1,24 +1,26 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('orderProducts', {
+    queryInterface.createTable('OrderProducts', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       productId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'items',
-          key: 'id',
+          model: 'Products',
+          key: 'id'
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
         allowNull: false
       },
-      orderId: {
+      OrderId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'items',
-          key: 'id',
+          model: 'Orders',
+          key: 'id'
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
         allowNull: false
       },
       date: {
@@ -45,12 +47,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
-      .then(() => {
-        queryInterface.addConstraint('orderproducts', ['productId', 'orderId'], {
-          type: 'primary key',
-          name: 'orderproduct_pkey'
-        });
-      }),
-  down: (queryInterface) =>  queryInterface.dropTable('orderProducts'),
+    }),
+  down: (queryInterface) =>  queryInterface.dropTable('OrdersProducts'),
 };

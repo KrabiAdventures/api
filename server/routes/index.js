@@ -30,9 +30,9 @@ module.exports = (app) => {
     router.group('/orders', router => {
       router.post('/', controllers.orders.create);
       router.get('/', controllers.orders.list);
-      router.get('/:orderId', controllers.orders.retrieve);
-      router.put('/:orderId', controllers.orders.update);
-      router.delete('/:orderId', controllers.orders.destroy);
+      router.get('/:OrderId', controllers.orders.retrieve);
+      router.put('/:OrderId', controllers.orders.update);
+      router.delete('/:OrderId', controllers.orders.destroy);
     });
 
     router.group('/unavailabilities', router => {

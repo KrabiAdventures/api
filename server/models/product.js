@@ -42,10 +42,13 @@ module.exports = (sequelize, DataTypes) => {
     Product.hasMany(models.Unavailability, {
       foreignKey: 'productId',
       as: 'unavailabilities',
+      onDelete: 'CASCADE'
     });
-	Product.belongsToMany(models.Order, {
-		through: OrderProduct
-	});
+    
+    Product.hasMany(models.OrderProduct, {
+      foreignKey: 'productId',
+      onDelete: 'CASCADE',
+    });
   };
 
   return Product;
