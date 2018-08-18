@@ -17,14 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {
+    tableName: 'orders',
     timestamps: true,
     underscored: true
   });
 
   Order.associate = (models) => {
     Order.hasMany(models.OrderProduct, {
-      foreignKey: 'OrderId',
+      foreignKey: 'order_id',
       onDelete: 'CASCADE',
+      as: 'order_products'
     });
   };
 

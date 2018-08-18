@@ -15,7 +15,7 @@ module.exports = {
         new Promise(resolve => {
           req.body.products.forEach(product => {
             OrderProduct.create({ 
-              OrderId: order.id,
+              order_id: order.id,
               product_id: product.product_id,
               pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
               adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
@@ -43,6 +43,7 @@ module.exports = {
         },
         include: [{
           model: OrderProduct,
+          as: 'order_products',
           attributes: [
             'product_id',
             'date',
@@ -59,10 +60,12 @@ module.exports = {
   retrieve(req, res) {
     return Order
       .findOne({
-        where: { id: req.params.OrderId }, 
+        where: { id: req.params.order_id }, 
         include: [{
           model: OrderProduct,
+          as: 'order_products',
           attributes: [
+            'id',
             'product_id',
             'date',
             'pickup_location',
@@ -85,7 +88,7 @@ module.exports = {
   update(req, res) {
     return Order
       .findOne({
-        where: { id: req.params.OrderId }, 
+        where: { id: req.params.order_id }, 
         include: [{
           model: OrderProduct,
         }]
@@ -134,7 +137,7 @@ module.exports = {
 
   destroy(req, res) {
     return Order
-      .findById(req.params.OrderId)
+      .findById(req.params.order_id)
       .then(order => {
         if (!order) {
           return res.status(400).send({
@@ -142,7 +145,7 @@ module.exports = {
           });
         }
 
-        OrderProduct.destroy({ where: { OrderId: order.id}});
+        OrderProduct.destroy({ where: { order_id: order.id}});
 
         return order
           .destroy()

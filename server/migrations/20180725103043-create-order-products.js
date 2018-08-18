@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('OrderProducts', {
+    queryInterface.createTable('order_products', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,16 +26,16 @@ module.exports = {
       product_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Products',
+          model: 'products',
           key: 'id'
         },
         onDelete: 'CASCADE',
         allowNull: false
       },
-      OrderId: {
+      order_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Orders',
+          model: 'orders',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -52,5 +52,5 @@ module.exports = {
         field: 'updated_at'
       }
     }),
-  down: (queryInterface) =>  queryInterface.dropTable('OrdersProducts'),
+  down: (queryInterface) =>  queryInterface.dropTable('order_products'),
 };

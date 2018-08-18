@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
   }, {
+    tableName: 'products',
     timestamps: true,
     underscored: true
   });
@@ -44,13 +45,13 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = (models) => {
     Product.hasMany(models.Unavailability, {
       foreignKey: 'product_id',
-      as: 'unavailabilities',
       onDelete: 'CASCADE'
     });
     
     Product.hasMany(models.OrderProduct, {
       foreignKey: 'product_id',
       onDelete: 'CASCADE',
+      as: 'order_products'
     });
   };
 

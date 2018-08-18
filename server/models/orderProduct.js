@@ -17,13 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {
+    tableName: 'order_products',
     timestamps: true,
-    underscored: true
+    underscored: true,
   });
 
   OrderProduct.associate = (models) => {
     OrderProduct.belongsTo(models.Order, {
-      foreignKey: 'OrderId',
+      foreignKey: 'order_id',
       onDelete: 'CASCADE',
       unique: false
     });

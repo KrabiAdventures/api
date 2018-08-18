@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Unavailabilities', {
+    queryInterface.createTable('unavailabilities', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Products',
+          model: 'products',
           key: 'id',
           as: 'product_id',
         },
@@ -39,5 +39,5 @@ module.exports = {
         field: 'updated_at'
       },
     }),
-  down: (queryInterface) => queryInterface.dropTable('Unavailabilities'),
+  down: (queryInterface) => queryInterface.dropTable('unavailabilities'),
 };
