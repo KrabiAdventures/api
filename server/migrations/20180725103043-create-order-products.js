@@ -7,22 +7,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Products',
-          key: 'id'
-        },
-        allowNull: false
-      },
-      OrderId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Orders',
-          key: 'id'
-        },
-        allowNull: false
-      },
       date: {
         type: Sequelize.DATE,
         allowNull: false
@@ -38,6 +22,24 @@ module.exports = {
       pickup_location: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      productId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Products',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        allowNull: false
+      },
+      OrderId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Orders',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
