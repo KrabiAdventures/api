@@ -29,7 +29,7 @@ module.exports = {
   retrieve(req, res) {
     return Product
       .findAll({ 
-        where: { id: req.params.productId }, 
+        where: { id: req.params.product_id }, 
         include: [{
           model: Unavailability,
           as: 'unavailabilities'
@@ -48,7 +48,7 @@ module.exports = {
 
   update(req, res) {
     return Product
-      .findById(req.params.productId)
+      .findById(req.params.product_id)
       .then(product => {
         if (!product) {
           return res.status(404).send({
@@ -75,7 +75,7 @@ module.exports = {
 
   destroy(req, res) {
     return Product
-      .findById(req.params.productId)
+      .findById(req.params.product_id)
       .then(product => {
         if (!product) {
           return res.status(400).send({

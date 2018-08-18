@@ -43,13 +43,13 @@ module.exports = (sequelize, DataTypes) => {
 
   Product.associate = (models) => {
     Product.hasMany(models.Unavailability, {
-      foreignKey: 'productId',
+      foreignKey: 'product_id',
       as: 'unavailabilities',
       onDelete: 'CASCADE'
     });
     
     Product.hasMany(models.OrderProduct, {
-      foreignKey: 'productId',
+      foreignKey: 'product_id',
       onDelete: 'CASCADE',
     });
   };

@@ -21,7 +21,7 @@ module.exports = {
 
   retrieve(req, res) {
     return Category
-      .findById(req.params.categoryId)
+      .findById(req.params.category_id)
       .then(category => {
         if (!category) {
           return res.status(404).send({
@@ -35,7 +35,7 @@ module.exports = {
 
   update(req, res) {
     return Category
-      .findById(req.params.categoryId)
+      .findById(req.params.category_id)
       .then(category => {
         if (!category) {
           return res.status(404).send({
@@ -56,7 +56,7 @@ module.exports = {
 
   destroy(req, res) {
     return Category
-      .findById(req.params.categoryId)
+      .findById(req.params.category_id)
       .then(category => {
         if (!category) {
           return res.status(400).send({

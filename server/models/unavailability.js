@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Unavailability.associate = (models) => {
     Unavailability.belongsTo(models.Product, {
-      foreignKey: 'productId',
+      foreignKey: 'product_id',
       onDelete: 'CASCADE',
     });
   };

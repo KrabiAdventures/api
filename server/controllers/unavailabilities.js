@@ -8,7 +8,7 @@ module.exports = {
         description: req.body.description,
         dateTo: req.body.dateTo,
         dateFrom: req.body.dateFrom,
-        productId: req.body.productId
+        product_id: req.body.product_id
       })
       .then(unavailability => res.status(201).send(unavailability))
       .catch(error => res.status(400).send(error));
@@ -23,7 +23,7 @@ module.exports = {
 
   retrieve(req, res) {
     return Unavailability
-      .findById(req.params.unavailabilityId)
+      .findById(req.params.unavailability_id)
       .then(unavailability => {
         if (!unavailability) {
           return res.status(404).send({
@@ -37,7 +37,7 @@ module.exports = {
 
   update(req, res) {
     return Unavailability
-      .findById(req.params.unavailabilityId)
+      .findById(req.params.unavailability_id)
       .then(unavailability => {
         if (!unavailability) {
           return res.status(404).send({
@@ -58,7 +58,7 @@ module.exports = {
 
   destroy(req, res) {
     return Unavailability
-      .findById(req.params.unavailabilityId)
+      .findById(req.params.unavailability_id)
       .then(unavailability => {
         if (!unavailability) {
           return res.status(400).send({

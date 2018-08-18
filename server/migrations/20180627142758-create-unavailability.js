@@ -19,13 +19,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      productId: {
+      product_id: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'Products',
           key: 'id',
-          as: 'productId',
+          as: 'product_id',
         },
       },
       createdAt: {

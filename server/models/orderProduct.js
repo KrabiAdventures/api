@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false
     });
     OrderProduct.belongsTo(models.Product, {
-      foreignKey: 'productId',
+      foreignKey: 'product_id',
       onDelete: 'CASCADE',
       unique: false
     });

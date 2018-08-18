@@ -16,7 +16,7 @@ module.exports = {
           req.body.products.forEach(product => {
             OrderProduct.create({ 
               OrderId: order.id,
-              productId: product.productId,
+              product_id: product.product_id,
               pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
               adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
               child_quantity: product.child_quantity ? product.child_quantity : 0,
@@ -37,14 +37,14 @@ module.exports = {
       .findAll({
         attributes: {
           exclude: [
-            'createdAt',
-            'updatedAt'
+            'created_at',
+            'updated_at'
           ]
         },
         include: [{
           model: OrderProduct,
           attributes: [
-            'productId',
+            'product_id',
             'date',
             'pickup_location',
             'child_quantity',
@@ -63,7 +63,7 @@ module.exports = {
         include: [{
           model: OrderProduct,
           attributes: [
-            'productId',
+            'product_id',
             'date',
             'pickup_location',
             'child_quantity',
@@ -113,7 +113,7 @@ module.exports = {
                   .then(orderProduct => {
                     return orderProduct
                       .update({ 
-                        productId: product.productId,
+                        product_id: product.product_id,
                         pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
                         adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
                         child_quantity: product.child_quantity ? product.child_quantity : 0,
