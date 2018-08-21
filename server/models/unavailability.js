@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   Unavailability.associate = (models) => {
     Unavailability.belongsTo(models.Product, {
       foreignKey: 'product_id',
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE'
     });
   };
 

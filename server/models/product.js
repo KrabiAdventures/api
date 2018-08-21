@@ -45,7 +45,8 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = (models) => {
     Product.hasMany(models.Unavailability, {
       foreignKey: 'product_id',
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      as: 'unavailabilities'
     });
     
     Product.hasMany(models.OrderProduct, {

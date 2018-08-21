@@ -21,14 +21,31 @@ module.exports = {
   
   list(req, res) {
     return Product
-      .all()
+      .findAll({
+        attributes: {
+          exclude: [
+            'created_at',
+            'updated_at'
+          ]
+        },
+        include: [{
+          model: Unavailability,
+          as: 'unavailabilities'
+        }]
+      })
       .then(products => res.status(200).send(products))
       .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {
     return Product
-      .findAll({ 
+      .findOne({ 
+        attributes: {
+          exclude: [
+            'created_at',
+            'updated_at'
+          ]
+        },
         where: { id: req.params.product_id }, 
         include: [{
           model: Unavailability,
@@ -36,11 +53,11 @@ module.exports = {
         }] 
       })
       .then(product => {
-        if (!product) {
+        if (!product) 
           return res.status(404).send({
             message: 'Product Not Found',
           });
-        }
+        
         return res.status(200).send(product);
       })
       .catch(error => res.status(400).send(error));
@@ -50,11 +67,11 @@ module.exports = {
     return Product
       .findById(req.params.product_id)
       .then(product => {
-        if (!product) {
+        if (!product) 
           return res.status(404).send({
             message: 'Product Not Found',
           });
-        }
+        
         return product
           .update({
             title: req.body.title || product.title,
@@ -77,11 +94,11 @@ module.exports = {
     return Product
       .findById(req.params.product_id)
       .then(product => {
-        if (!product) {
+        if (!product) 
           return res.status(400).send({
             message: 'Product Not Found',
           });
-        }
+        
         return product
           .destroy()
           .then(() => res.status(204).send())

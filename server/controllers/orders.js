@@ -112,11 +112,11 @@ module.exports = {
                 .then(orderProduct => {
                   return orderProduct
                     .update({ 
-                      product_id: product.product_id,
-                      pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
-                      adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
-                      child_quantity: product.child_quantity ? product.child_quantity : 0,
-                      date: product.date ? product.date : null
+                      product_id: product.product_id || orderProduct.product_id,
+                      pickup_location: product.pickup_location || orderProduct.pickup_location,
+                      adult_quantity: product.adult_quantity || orderProduct.adult_quantity,
+                      child_quantity: product.child_quantity || orderProduct.child_quantity,
+                      date: product.date || orderProduct.date
                     });
                 })
                 .catch((error) => res.status(400).send(error));

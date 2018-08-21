@@ -15,20 +15,35 @@ module.exports = {
   
   list(req, res) {
     return Unavailability
-      .all()
+      .findAll({
+        attributes: {
+          exclude: [
+            'created_at',
+            'updated_at'
+          ]
+        }
+      })
       .then(products => res.status(200).send(products))
       .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {
     return Unavailability
-      .findById(req.params.unavailability_id)
+      .findOne({ 
+        attributes: {
+          exclude: [
+            'created_at',
+            'updated_at'
+          ]
+        },
+        where: { id: req.params.unavailability_id }, 
+      })
       .then(unavailability => {
-        if (!unavailability) {
+        if (!unavailability) 
           return res.status(404).send({
             message: 'Unavailability Not Found',
           });
-        }
+        
         return res.status(200).send(unavailability);
       })
       .catch(error => res.status(400).send(error));
@@ -38,11 +53,11 @@ module.exports = {
     return Unavailability
       .findById(req.params.unavailability_id)
       .then(unavailability => {
-        if (!unavailability) {
+        if (!unavailability) 
           return res.status(404).send({
             message: 'Unavailability Not Found',
           });
-        }
+        
         return unavailability
           .update({
             description: req.body.description || unavailability.description,
@@ -60,11 +75,11 @@ module.exports = {
     return Unavailability
       .findById(req.params.unavailability_id)
       .then(unavailability => {
-        if (!unavailability) {
+        if (!unavailability)
           return res.status(400).send({
             message: 'Unavailability Not Found',
           });
-        }
+        
         return unavailability
           .destroy()
           .then(() => res.status(204).send())
