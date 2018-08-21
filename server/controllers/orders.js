@@ -12,22 +12,18 @@ module.exports = {
         products: req.body.products
       })
       .then(order => {
-        new Promise(resolve => {
-          req.body.products.forEach(product => {
-            OrderProduct.create({ 
-              order_id: order.id,
-              product_id: product.product_id,
-              pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
-              adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
-              child_quantity: product.child_quantity ? product.child_quantity : 0,
-              date: product.date ? product.date : null
-            });
+        req.body.products.forEach(product => {
+          OrderProduct.create({ 
+            order_id: order.id,
+            product_id: product.product_id,
+            pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
+            adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
+            child_quantity: product.child_quantity ? product.child_quantity : 0,
+            date: product.date ? product.date : null
           });
-
-          resolve();
-        }).then(() => {
-          res.status(201).send(order);
         });
+        
+        res.status(201).send(order);
       })
       .catch(error => res.status(400).send(error));
   },
@@ -75,11 +71,11 @@ module.exports = {
         }]
       })
       .then(order => {
-        if (!order) {
+        if (!order) 
           return res.status(404).send({
             message: 'Order Not Found',
           });
-        }
+        
         return res.status(200).send(order);
       })
       .catch(error => res.status(400).send(error));
@@ -91,14 +87,15 @@ module.exports = {
         where: { id: req.params.order_id }, 
         include: [{
           model: OrderProduct,
+          as: 'order_products'
         }]
       })
       .then(order => {
-        if (!order) {
+        if (!order)
           return res.status(404).send({
             message: 'Order Not Found',
           });
-        }
+        
         return order
           .update({
             name: req.body.name || order.name,
@@ -107,29 +104,25 @@ module.exports = {
             paid_with: req.body.paid_with || order.paid_with,
           })
           .then(order => {
-            new Promise(resolve => {
-              req.body.products.forEach(product => {
-                if (!product.id) 
-                  res.status(400).send({ message: 'Each OrderProduct must have an ID. '});
+            req.body.products.forEach(product => {
+              if (!product.id) 
+                res.status(400).send({ message: 'Each OrderProduct must have an ID. '});
 
-                OrderProduct.findById(product.id)
-                  .then(orderProduct => {
-                    return orderProduct
-                      .update({ 
-                        product_id: product.product_id,
-                        pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
-                        adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
-                        child_quantity: product.child_quantity ? product.child_quantity : 0,
-                        date: product.date ? product.date : null
-                      });
-                  })
-                  .catch((error) => res.status(400).send(error));
-              });
+              OrderProduct.findById(product.id)
+                .then(orderProduct => {
+                  return orderProduct
+                    .update({ 
+                      product_id: product.product_id,
+                      pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
+                      adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
+                      child_quantity: product.child_quantity ? product.child_quantity : 0,
+                      date: product.date ? product.date : null
+                    });
+                })
+                .catch((error) => res.status(400).send(error));
+            });
     
-              resolve();
-            }).then(() => {
-              res.status(201).send(order);
-            }).catch((error) => res.status(400).send(error));
+            res.status(201).send(order);
           });
       })
       .catch((error) => res.status(400).send(error));
@@ -139,13 +132,14 @@ module.exports = {
     return Order
       .findById(req.params.order_id)
       .then(order => {
-        if (!order) {
+        if (!order)
           return res.status(400).send({
             message: 'Order Not Found',
           });
-        }
 
-        OrderProduct.destroy({ where: { order_id: order.id}});
+        OrderProduct.destroy({ 
+          where: { order_id: order.id }
+        });
 
         return order
           .destroy()
