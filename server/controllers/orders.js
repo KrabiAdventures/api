@@ -13,17 +13,22 @@ module.exports = {
       })
       .then(order => {
         req.body.products.forEach(product => {
+          if (!product.product_id) 
+            return res.status(400).send({
+              message: 'Each Product requires an ID',
+            });  
+          
           OrderProduct.create({ 
             order_id: order.id,
             product_id: product.product_id,
-            pickup_location: product.pickup_location ? product.pickup_location : 'N/A',
-            adult_quantity: product.adult_quantity ? product.adult_quantity : 0,
-            child_quantity: product.child_quantity ? product.child_quantity : 0,
-            date: product.date ? product.date : null
+            pickup_location: product.pickup_location,
+            adult_quantity: product.adult_quantity,
+            child_quantity: product.child_quantity,
+            date: product.date,
           });
         });
-        
-        res.status(201).send(order);
+
+        res.status(200).send({ id: order.id });
       })
       .catch(error => res.status(400).send(error));
   },
@@ -56,6 +61,12 @@ module.exports = {
   retrieve(req, res) {
     return Order
       .findOne({
+        attributes: {
+          exclude: [
+            'created_at',
+            'updated_at'
+          ]
+        },
         where: { id: req.params.order_id }, 
         include: [{
           model: OrderProduct,
@@ -106,7 +117,9 @@ module.exports = {
           .then(order => {
             req.body.products.forEach(product => {
               if (!product.id) 
-                res.status(400).send({ message: 'Each OrderProduct must have an ID. '});
+                res.status(400).send({ 
+                  message: 'Each OrderProduct must have an ID. '
+                });
 
               OrderProduct.findById(product.id)
                 .then(orderProduct => {
@@ -122,7 +135,7 @@ module.exports = {
                 .catch((error) => res.status(400).send(error));
             });
     
-            res.status(201).send(order);
+            res.status(201).send({ id: order.id });
           });
       })
       .catch((error) => res.status(400).send(error));

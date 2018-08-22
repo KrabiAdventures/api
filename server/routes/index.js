@@ -5,6 +5,10 @@ const controllers = {
   unavailabilities: require('../controllers').unavailabilities,
 };
 
+const requests = {
+  orders: require('../requests').orders
+};
+
 module.exports = (app) => {
   app.group('/api', router => {
     router.get('/', (req, res) => res.status(200).send({
@@ -28,10 +32,10 @@ module.exports = (app) => {
     });
     
     router.group('/orders', router => {
-      router.post('/', controllers.orders.create);
+      router.post('/', requests.orders.validate.create, controllers.orders.create);
       router.get('/', controllers.orders.list);
       router.get('/:order_id', controllers.orders.retrieve);
-      router.put('/:order_id', controllers.orders.update);
+      router.put('/:order_id', requests.orders.validate.update, controllers.orders.update);
       router.delete('/:order_id', controllers.orders.destroy);
     });
 
