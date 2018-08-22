@@ -9,7 +9,7 @@ module.exports = {
         date_from: req.body.date_from,
         product_id: req.body.product_id
       })
-      .then(unavailability => res.status(201).send(unavailability))
+      .then(unavailability => res.status(201).send({ id: unavailability.id }))
       .catch(error => res.status(400).send(error));
   },
   
@@ -65,10 +65,10 @@ module.exports = {
             date_from: req.body.date_from || unavailability.date_from,
             product_id: req.body.product_id
           })
-          .then(() => res.status(200).send(unavailability)) 
-          .catch((error) => res.status(400).send(error));
+          .then(unavailability => res.status(200).send({ id: unavailability.id })) 
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   destroy(req, res) {

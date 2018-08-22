@@ -132,13 +132,13 @@ module.exports = {
                       date: product.date || orderProduct.date
                     });
                 })
-                .catch((error) => res.status(400).send(error));
+                .catch(error => res.status(400).send(error));
             });
     
             res.status(201).send({ id: order.id });
           });
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   destroy(req, res) {

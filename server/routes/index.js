@@ -6,7 +6,10 @@ const controllers = {
 };
 
 const requests = {
-  orders: require('../requests').orders
+  products: require('../requests').products,
+  categories: require('../requests').categories,
+  orders: require('../requests').orders,
+  unavailabilities: require('../requests').unavailabilities
 };
 
 module.exports = (app) => {
@@ -16,18 +19,18 @@ module.exports = (app) => {
     }));
 
     router.group('/products', router => {
-      router.post('/', controllers.products.create);
+      router.post('/', requests.products.validate.create, controllers.products.create);
       router.get('/', controllers.products.list);
       router.get('/:product_id', controllers.products.retrieve);
-      router.put('/:product_id', controllers.products.update);
+      router.put('/:product_id', requests.orders.validate.update, controllers.products.update);
       router.delete('/:product_id', controllers.products.destroy);
     });
 
     router.group('/categories', router => {
-      router.post('/', controllers.categories.create);
+      router.post('/', requests.categories.validate.create, controllers.categories.create);
       router.get('/', controllers.categories.list);
       router.get('/:category_id', controllers.categories.retrieve);
-      router.put('/:category_id', controllers.categories.update);
+      router.put('/:category_id', requests.orders.validate.update, controllers.categories.update);
       router.delete('/:category_id', controllers.categories.destroy);
     });
     
@@ -40,10 +43,10 @@ module.exports = (app) => {
     });
 
     router.group('/unavailabilities', router => {
-      router.post('/', controllers.unavailabilities.create);
+      router.post('/', requests.unavailabilities.validate.create, controllers.unavailabilities.create);
       router.get('/', controllers.unavailabilities.list);
       router.get('/:unavailability_id', controllers.unavailabilities.retrieve);
-      router.put('/:unavailability_id', controllers.unavailabilities.update);
+      router.put('/:unavailability_id', requests.unavailabilities.validate.create, controllers.unavailabilities.update);
       router.delete('/:unavailability_id', controllers.unavailabilities.destroy);
     });
   });

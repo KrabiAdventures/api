@@ -8,7 +8,7 @@ module.exports = {
         description: req.body.description,
         featured: req.body.featured,
       })
-      .then(category => res.status(201).send(category))
+      .then(category => res.status(201).send({ id: category.id }))
       .catch(error => res.status(400).send(error));
   },
 
@@ -63,10 +63,10 @@ module.exports = {
             description: req.body.description || category.description,
             featured: req.body.featured || category.featured,
           })
-          .then(() => res.status(200).send(category))
-          .catch((error) => res.status(400).send(error));
+          .then(category => res.status(200).send({ id: category.id }))
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   destroy(req, res) {

@@ -9,13 +9,13 @@ module.exports = {
         email: Joi.string().email().required(),
         phone_no: Joi.string().min(11),
         paid_with: Joi.string().required(),
-        products: Joi.array().items(
-          Joi.object({
+        products: Joi.array().required().items(
+          Joi.object().keys({
             product_id: Joi.number().required(),
             pickup_location: Joi.string().required(),
             adult_quantity: Joi.number().required(),
             child_quantity: Joi.number().required(),
-            date: Joi.date().required()
+            date: Joi.string().isoDate().required()
           })
         )
       })
@@ -32,7 +32,7 @@ module.exports = {
             pickup_location: Joi.string(),
             adult_quantity: Joi.number(),
             child_quantity: Joi.number(),
-            date: Joi.date()
+            date: Joi.string().isoDate()
           })
         )
       })

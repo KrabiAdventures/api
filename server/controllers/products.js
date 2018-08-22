@@ -15,7 +15,7 @@ module.exports = {
         image_url: req.body.image_url,
         published: req.body.published,
       })
-      .then(product => res.status(201).send(product))
+      .then(product => res.status(201).send({ id: product.id }))
       .catch(error => res.status(400).send(error));
   },
   
@@ -84,10 +84,10 @@ module.exports = {
             image_url: req.body.image_url || product.image_url,
             published: req.body.published || product.published,
           })
-          .then(() => res.status(200).send(product)) 
-          .catch((error) => res.status(400).send(error));
+          .then(product => res.status(200).send({ id: product.id })) 
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   destroy(req, res) {
